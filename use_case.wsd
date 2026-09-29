@@ -1,9 +1,43 @@
 @startuml
 skinparam packageStyle rectangle
-
 left to right direction
-
+:System:
+:Candidate:
+:Hiring Committee:
 package "Hiring Process" {
+:System: --> (Create Job Description)
+:System: --> (Generate Shareable Links)
+
+:Candidate: --> (Complete application form)
+:Candidate: --> (Upload Resume)
+:Candidate: --> (Upload Letters of Recommendation)
+
+:Hiring Committee: --> (Review Application Form)
+:Hiring Committee: --> (Review Resume)
+:Hiring Committee: --> (Review Letters of Recommendation)
+:Hiring Committee: --> (Evaluate Candidate)
+
+
+(Evaluate Candidate) ..> (Review Application Form):<<include>>
+(Evaluate Candidate) ..> (Review Resume):<<include>>
+(Evaluate Candidate) ..> (Review Letters of Recommendation):<<include>>
+
+(Send Rejection Email) ..> (Evaluate Candidate): <<extend>>\n[Unqualified]
+
+:Hiring Committee: --> (Interview)
+:Hiring Committee: --> (Hire Candidate)
+:Hiring Committee: --> (Reject Candidate)
+
+(Interview) ..> (Evaluate Candidate): <<extend>>\n[Qualified]
+(Reject Candidate) ..> (Interview): <<extend>>\n[Rejected]
+(Hire Candidate) ..> (Interview): <<extend>>\n[Hired]
+(Reject Candidate) ..> (Send Rejection Email): <<include>>
+(Hire Candidate)..> (Generate Analytical Report): <<include>>
+
+
+:System: --> (Send Rejection Email)
+:System: --> (Generate Analytical Report)
+
 
 }
 
