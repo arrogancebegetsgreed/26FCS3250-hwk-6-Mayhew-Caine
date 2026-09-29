@@ -1,3 +1,32 @@
-@startuml design
+@startuml
+Class flight {
++Airline Code:String {id}
++Flight Number:String {id}
+}
 
+
+Class Aircraft {
++Prefix:String{id}
++Registration Number:String {id}
++Manufacturer:String
++Model:String
++Capacity:Integer
+}
+
+
+Class Airport {
++IATA code: String {id}
++City:String
++State:String
++Country:String
+
+}
+
+Class Arrival_Departure{
++datetime: DateTime
+}
+
+Flight --> Aircraft:"Operator"
+Arrival_Departure --> Flight
+Arrival_Departure --> Airport
 @enduml
